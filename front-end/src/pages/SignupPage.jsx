@@ -1,20 +1,21 @@
 import {useState} from "react";
 import {useHistory} from "react-router-dom";
 
-export const LoginPage = () => {
+export const SignupPage = () => {
 	const [errorMessage, setErrorMessage] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [confirmPassword, setConfirmPassword] = useState("");
 
 	const history = useHistory();
 
-	const handleLogin = async () => {
-		alert("Login is going to be implemented in the future");
+	const handleSignup = async () => {
+		alert("Signup is going to be implemented in the future");
 	};
 
 	return (
 		<div className="content-container">
-			<h1>Log In</h1>
+			<h1>Sign up</h1>
 			{errorMessage ? <div className="fail">{errorMessage}</div> : null}
 			<input
 				type="text"
@@ -28,17 +29,21 @@ export const LoginPage = () => {
 				value={password}
 				onChange={(e) => setPassword(e.target.value)}
 			/>
-
+			<input
+				type="password"
+				placeholder="Confirm password"
+				value={confirmPassword}
+				onChange={(e) => setConfirmPassword(e.target.value)}
+			/>
 			<hr />
-
-			<button onClick={handleLogin} disabled={!email || !password}>
-				Log In
+			<button
+				onClick={handleSignup}
+				disabled={!email || !password || password !== confirmPassword}
+			>
+				Sign up
 			</button>
-			<button onClick={() => history.push("/forgot-password")}>
-				Forgot your password?
-			</button>
-			<button onClick={() => history.push("/signup")}>
-				Don't hava an accaunt? Sign Up
+			<button onClick={() => history.push("/login")}>
+				Already have an account? Log in
 			</button>
 		</div>
 	);
