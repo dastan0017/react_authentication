@@ -32,17 +32,17 @@ export const signupRoute = {
 
 		const {insertedId} = result;
 
-		jwt.sign(
-			{id: insertedId, email, info: startingInfo, isVerified: false},
-			process.env.JWT_SECRET,
-			{expiresIn: "2d"},
-			(err, token) => {
-				if (err) {
-					return res.status(500).send(err);
-				}
+		try {
+			const token = jwt.sign(
+				{id: insertedId, email, info: startingInfo, isVerified: false},
+				"donothackme",
+				{expiresIn: "2d"}
+			);
 
-				res.status(200).json({token});
-			}
-		);
+			res.status(200).json({token});
+		} catch (err) {
+			res.status(505).json({error: "Something went wrong"});
+			res.status(500).send(err);
+		}
 	},
 };
